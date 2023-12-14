@@ -1,0 +1,14 @@
+<headline>Ledger (Hauptbuch)</headline>
+<content>
+    In Hyperledger Fabric gibt es bei der Datenspeicherung zwei Teilkomponenten, die eng miteinander verbunden sind. Das Ledger (Hauptbuch) und der WorldState (Weltzustand). Diese beiden Komponenten spielen eine wichtige Rolle bei der Verwaltung und Aufrechterhaltung des Zustands und der Transaktionshistorie eines Blockchain-Netzwerks. <br>
+    <br>
+    <b>Ledger</b><br>
+    Das Ledger, auch als Hauptbuch bezeichnet, ist der Kernbestandteil einer jeden Blockchain-Plattform. Es umfasst eine unveränderliche Aufzeichnung aller Transaktionen, die jemals durchgeführt wurden. Es dient als chronologische Aufzeichnung, die alle Transaktionsdetails und deren Reihenfolge enthält. Das Ledger ist in zwei Teile unterteilt, dem World State (Weltzustand) und der Transaktionshistorie.<br>
+    <br>
+    <b>World State</b><br>
+    Der World State ist ein zentraler Bestandteil des Ledgers von Hyperledger Fabric. Er enthält den <u>aktuellen Zustand</u> aller Assets und Verträge in der Blockchain. Der World State kann als aktueller, "live" Zustand verstanden werden, der den aktuellen Status aller Daten in der Blockchain darstellt. Anstatt die gesamte Transaktionshistorie erneut durchzugehen, um den aktuellen Zustand eines Assets zu ermitteln, kann dieser direkt aus dem Weltzustand abgerufen werden. Der World State wird in einer optimierten Datenbank gespeichert, die den Zugriff auf die aktuellen Daten beschleunigt. Dies ist besonders nützlich, wenn es viele Transaktionen und Assets gibt.<br>
+    <br>
+    Zusammenfassend kann gesagt werden, dass der Ledger in Hyperledger Fabric Transaktionshistorie und World State kombiniert. Während die Transaktionshistorie alle Transaktionen speichert, die jemals auf der Blockchain durchgeführt wurden, ermöglicht der World State den schnellen Zugriff auf den aktuellen Zustand aller Assets und Verträge, ohne die gesamte Transaktionshistorie durchgehen zu müssen. Dieses Design hilft, die Effizienz und Leistungsfähigkeit von Hyperledger Fabric zu erhöhen.
+    <br>
+    <img src="/images/Ledger.png">
+</content>

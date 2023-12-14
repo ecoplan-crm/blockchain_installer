@@ -1,0 +1,30 @@
+<headline>Hyperledger Fabric Blockchain-Netzwerk</headline>
+<content>
+    Die Hyperledger Fabric Blockchain ist eine im Rahmen der Linux Foundation gegründete Open-Source-Plattform für den
+    praxistauglichen Einsatz in Unternehmen. Die Fabric-Plattform besitzt ein Berechtigungskonzept, um die
+    Vertrauenswürdigkeit der Teilnehmer sicherzustellen. Jede Organisation in Fabric verfügt über eine
+    Zertifizierungsstelle und einen oder mehreren Peer-Knoten. Eine Organisation in einem Netzwerk wird durch ein
+    Stammzertifikat referenziert. Benutzer und andere Komponenten werden ebenfalls durch Zertifikate identifiziert.
+    Diese Zertifikate regeln die Berechtigungen für jede Entität im Netzwerk. Ein Kanal (Channel) kann im Unternehmen
+    eine organisatorische Einheit wie z.B. die Abteilung Finanzbuchhaltung oder Einkauf abbilden. Das Stammzertifikat
+    für eine Organisation wird in der Fabric-Zertifizierungsstelle (CA) hinterlegt. Die Fabric-Zertifizierungsstelle
+    stellt Zertifikate für die Teilnehmer der Organisation aus. Über die Organisation werden die Peer-Knoten erstellt.
+    Die Peer-Knoten werden in der Regel auf einem eigenen Computer ausgeführt. Sie erhalten eine Kopie des Ledgers
+    (Hauptbuchs) und können auch als Endorser fungieren.<br>
+    In Hyperledger Fabric legt eine Endorsement-Richtlinie die Kriterien fest, die eine Transaktionsanfrage erfüllen
+    muss, um als gültig betrachtet zu werden. Z.B. die Anzahl der Endorser-Peers, die zustimmen müssen, damit die
+    Transaktion genehmigt wird.<br>
+    Endorser unterstützen die Vorgänge bei der Transaktionsverarbeitung, z.B. bei der Transaktionsprüfung und der
+    Speicherung der Transaktionsdaten im Ledger (Hauptbuch). Die Peers führen den Smart-Contract-Code, der bei
+    Hyperledger Fabric als „Chaincode“ bezeichnet wird, aus. Der Chaincode kann als eine Art „Programm-Code“ verstanden
+    werden. Die Fabric-Clients interagieren mit dem Peer-Knoten, um neue Transaktionen vorzuschlagen, zu prüfen und zu
+    speichern oder das Ledger zu lesen. Über einen Bestelldienst (Odering-Service/Orderer) der von allen Teilnehmern
+    des Netzwerks gemeinsam genutzt wird, werden neue Transaktionen im Netzwerk sortiert und in neue Blöcke angeordnet.
+    Im Anschluss sendet der Bestelldienst (Ordering-Service) den neuen Transaktionsblock an die Peer-Knoten. Die
+    Peer-Knoten aktualisieren dann ihre lokale Kopie des Ledgers (Hauptbuchs) mit diesem neuen Block.
+
+    <img class="my-5 w-full" src="/images/Hyperledger Fabric Blockchain - Netzwerk.png"
+        alt="Hyperledger Fabric Blockchain - Netzwerk"/>
+
+    <span class="text-sm text-xs text-gray-600">Quelle: Eigene Darstellung</span><br>
+</content>

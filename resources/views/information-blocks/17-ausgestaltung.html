@@ -1,0 +1,28 @@
+<headline>Ausgestaltung der Hyperledger Fabric Blockchain durch die Installationsroutine</headline>
+<content>
+    Die vorliegende Installationsroutine vereinfacht den vielschichtigen und komplexen Installationsprozess der
+    Hyperledger Fabric Blockchain deutlich. Jeder Schritt wird durch Hilfestellung und Erklärungen begleitet. Auch
+    weniger erfahrene Anwender können so ohne große Vorkenntnisse ein Standard Hyperledger Fabric Blockchain-Netzwerk
+    relativ zügig aufsetzen und in ihrer IT-Umgebung testen. So können sie sich mit dem Thema der Installation und Anwendung
+    vertraut machen, die Technik besser verstehen und erste Erfahrungen sammeln. Damit lassen sich die Funktion,
+    die Interaktion und das Verhalten von Hyperledger Fabric in einer kontrollierten Umgebung testen und Fehler können erkannt werden. Bei
+    der Installation werden nur die wichtigsten Parameter für die Erstellung der Blockchain abgefragt. Die restlichen
+    Parameter werden im Standard automatisch konfiguriert, um die Komplexität auch für unerfahrene Anwender auf einem
+    angemessenen Niveau zu halten. Nach Abschluss der Installation können über eine Testoberfläche Werte auf die
+    Blockchain geschrieben und gelesen werden. Die Testoberfläche simuliert die Schnittstelle zur Hyperledger Fabric
+    Blockchain. Die Schnittstellen können später von unterschiedlichen Anwendungen / Fremdsystemen wie z.B. einem
+    Finanzbuchhaltungs- oder einem ERP-System, etc. ausgehen.
+    Bei der vorliegenden Hyperledger Fabric Installation wird keine TLS-Zertifizierungsstelle (CA) eingesetzt. Alle
+    Zertifikate werden von den Root-CAs automatisch ausgestellt. Benutzer und andere Komponenten werden durch die
+    Zertifikate identifiziert. Es wird eine Organisation mit einem Kanal (Channel) im Standard erstellt. Die Anzahl der
+    Peers auf dem Hauptrechner Ubuntu und weitere Peers auf anderen Computern können definiert werden.
+    Nach Installation der Hyperledger Fabric Blockchain Basis-Umgebung können über vorgefertigte Pakete weitere Peers von
+    verschiedenen Computern dem Blockchain-Netzwerk beitreten.
+    Die Endorsement-Policy wird automatisch erstellt und implementiert. Alle Peer-Knoten erhalten die Funktion des
+    Endorsers und sind in den Endorsement-Prozess eingebunden. Der Chaincode für die Test-Applikation wird automatisch
+    erstellt und auf die Peers verteilt und instanziiert. Für den Ordering-Service (Bestellprozess) wird ein
+    Einzelknoten-Raft-Bestelldienst installiert. In der Testanwendung sind die Felder der Blockchain vorgegeben. Es
+    können beliebige Testdaten auf die Blockchain geschrieben und gelesen werden. Die Option von Hyperledger Fabric, auch
+    private Daten mit einer temporären Gültigkeit in der Blockchain zu speichern, ist dieser Anwendung nicht möglich.
+
+</content>

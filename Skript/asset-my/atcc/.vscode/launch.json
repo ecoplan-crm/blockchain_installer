@@ -1,0 +1,35 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Sample",
+            "request": "launch",
+            "mainClass": "com.example.Sample",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
+            "name": "Launch EnrollAdmin",
+            "request": "launch",
+            "mainClass": "com.example.EnrollAdmin",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.example.App",
+            "projectName": "demo"
+        }
+    ]
+}

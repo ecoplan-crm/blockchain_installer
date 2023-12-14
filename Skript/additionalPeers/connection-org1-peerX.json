@@ -1,0 +1,49 @@
+{
+    "name": "test-network-org1",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Org1",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Org1": {
+            "mspid": "Org1MSP",
+            "peers": [
+                "peer##{peerNumber}##.org1.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org1.example.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer##{peerNumber}##.org1.example.com": {
+            "url": "grpcs://localhost:##{peerPort}##",
+            "tlsCACerts": {
+                "pem": "##{cert}##"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer##{peerNumber}##.org1.example.com",
+                "hostnameOverride": "peer##{peerNumber}##.org1.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.org1.example.com": {
+            "url": "https://orderer.example.com:7054",
+            "caName": "ca-org1",
+            "tlsCACerts": {
+                "pem": ["##{cert}##"]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: "3.7"
+
+volumes:
+  peer##{peerNumber}##.org1.example.com:
+
+networks:
+  test:
+    name: fabric_test
+
+services:
+  peer##{peerNumber}##.org1.example.com:
+    container_name: peer##{peerNumber}##.org1.example.com
+    image: hyperledger/fabric-peer:2.4.9
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - FABRIC_CFG_PATH=/etc/hyperledger/config
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=false
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variables
+      - CORE_PEER_ID=peer##{peerNumber}##.org1.example.com
+      - CORE_PEER_ADDRESS=peer##{peerNumber}##.org1.example.com:##{peerPort}##
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:##{peerPort}##
+      - CORE_PEER_CHAINCODEADDRESS=localhost:##{peerPort2}##
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:##{peerPort2}##
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer##{peerNumber}##.org1.example.com:##{peerPort}##
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer##{peerNumber}##.org1.example.com:##{peerPort}##
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
+      - CORE_OPERATIONS_LISTENADDRESS=peer##{peerNumber}##.org1.example.com:##{peerPort446}##
+      - CORE_METRICS_PROVIDER=prometheus
+      - CHAINCODE_AS_A_SERVICE_BUILDER_CONFIG={"peername":"peer##{peerNumber}##org1"}
+      - CORE_CHAINCODE_EXECUTETIMEOUT=300s
+    volumes:
+      - ../organizations/peerOrganizations/org1.example.com/peers/peer##{peerNumber}##.org1.example.com/:/etc/hyperledger/fabric/
+      - peer##{peerNumber}##.org1.example.com:/var/hyperledger/production
+      - ../../config/:/etc/hyperledger/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /root
+    command: peer node start
+    ports:
+      - ##{peerPort}##:##{peerPort}##
+      - ##{peerPort2}##:##{peerPort2}##
+      - ##{peerPort446}##:##{peerPort446}##
+    networks:
+      - test
+    extra_hosts:
+      - "orderer.example.com:##{ip}##"
+      - "peer0.org1.example.com:##{ip}##"
+      - "peer##{peerNumber}##.org1.example.com:127.0.0.1"

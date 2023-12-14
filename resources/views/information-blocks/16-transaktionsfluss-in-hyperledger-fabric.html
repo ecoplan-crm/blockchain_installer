@@ -1,0 +1,33 @@
+<headline>Transaktionsfluss in Hyperledger Fabric</headline>
+<content>
+    <ol class="custom-list-decimal">
+        <li>
+            Eine Clientanwendung startet einen Transaktionsvorschlag (z.B. Schreiben eines Wertes auf die Blockchain).
+        </li>
+        <li>
+            Zunächst wird die Identität und Berechtigung des übermittelnden Teilnehmers durch die Endorser-Peers
+            geprüft. Danach simulieren die Endorser-Peers das Ergebnis der vorgeschlagenen Transaktion und senden eine
+            Bestätigungsunterschrift an den Teilnehmer zurück.
+        </li>
+        <li>
+            Der aufrufende Client/Peer sammelt die Bestätigungen und sendet sie zusammen mit der Transaktion an den
+            Ordering-Service (Bestelldienst), wenn die in der Endorsement-Policy eingetragenen Endorser zugestimmt haben.
+        </li>
+        <li>
+            Der Ordering-Service prüft, ob die Transaktion über die richtige Anzahl an Vermerken verfügt. Im Anschluss
+            ordnet und verpackt es die genehmigten Transaktionen in Blöcke und sendet diese Blöcke an Peer-Knoten der
+            Organisation.
+        </li>
+        <li>
+            Peer-Knoten empfangen neue Transaktionsblöcke vom Bestelldienst und führen dann eine abschließende
+            Validierung für Transaktionen in diesem Block durch. Sobald dies abgeschlossen ist, wird der neue Block zum
+            Ledger hinzugefügt und der Status des Ledgers aktualisiert. Die neuen Transaktionen sind nun
+            festgeschrieben.
+        </li>
+    </ol>
+    <br>
+    <img class="w-full" src="/images/Transaktionsfluss.png" />
+    <span class="text-sm text-xs text-gray-600">Quelle:
+        https://www.researchgate.net/publication/336602862_Consentio_Managing_Consent_to_Data_Access_using_Permissioned_Blockchains/figures?lo=1
+    </span>
+</content>

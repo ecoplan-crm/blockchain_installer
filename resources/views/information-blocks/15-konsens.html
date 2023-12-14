@@ -1,0 +1,11 @@
+<headline>Konsens</headline>
+<content>
+    In Hyperledger Fabric erfolgt der Konsens in einem dreistufigen Prozess. Zuerst erfolgt das Endorsement, dann das
+    Ordering (Bestellung) und im Anschluss die Validation. Beim Ordering unterstützt Hyperledger Fabric derzeit drei
+    verschiedene Mechanismen oder Implementierungen von Konsens - SOLO, Kafka und Raft. Nur Raft ermöglicht einen
+    Bestellservice, der aus Knoten verschiedener Organisationen besteht. Raft basiert auf dem CFT-Konsensmechanismus
+    (Crash Fault Tolerant) und fungiert als Leader mit Followern. In Abhängigkeit des Anwendungsfalles kann ein
+    fehlertoleranter byzantinischer Konsens (Byzantine Fault Tolerance BFT) nötig sein. Der BFT-Konsens ist weitaus
+    komplexer und wird vor allem in Systemen angewendet, bei denen man davon ausgehen muss, dass auch nicht
+    vertrauenswürdige Teilnehmer im Netzwerk vorhanden sind.
+</content>

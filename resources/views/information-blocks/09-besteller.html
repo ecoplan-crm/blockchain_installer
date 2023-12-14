@@ -1,0 +1,14 @@
+<headline>Besteller (Ordering-Service / Orderer)</headline>
+<content>
+    Der Bestellservice kann aus einem oder mehreren Bestellknoten bestehen. Die Knoten empfangen gleichzeitig
+    Transaktionen von verschiedenen Anwendungsclients. Diese Bestellknoten arbeiten zusammen, um gemeinsam den
+    Bestellservice abzuwickeln. Ihre Aufgabe ist es, Stapel übermittelter Transaktionen in einer genau definierten
+    Reihenfolge anzuordnen und in Blöcke zu packen. Die Peers müssen diese Reihenfolge beim Validieren und Festschreiben
+    von Transaktionen verwenden. Die von Fabric erstellten Blöcke sind endgültig, d.h. es werden keine validierten
+    Transaktionen jemals zurückgesetzt oder gelöscht. In Fabric stehen verschiedene Protokolle für die Bestelldienste
+    zur Auswahl (Raft, Solo, Kafka). Beim Raft-Protokoll wird ein „Leader und Follower“-Modell umgesetzt, bei dem ein
+    Leader dynamisch unter den Bestellern in einem Kanal ausgewählt wird. Dieser Leader repliziert die Vorgehensweise
+    über Nachrichten an die Follower-Besteller. Durch den Einsatz von mehreren Bestellern (Orderer) kann das System den
+    Verlust von Bestellknoten (z.B. durch technischen Ausfall etc.) aushalten, solange die Mehrheit der Bestellknoten
+    weiter zur Verfügung steht.
+</content>

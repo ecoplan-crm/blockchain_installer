@@ -1,0 +1,14 @@
+<headline>Smart Contract (Chaincode)</headline>
+<content>
+    Der Anwendungscode „Smart Contract“ wird bei Fabric „Chaincode“ genannt. Er ist ein Anwendungscode, der die Logik
+    zum Aufrufen von Transaktionen darstellt. Im herkömmlichen Sinne kann der Chaincode als eine Art „Datenbank-Trigger“
+    oder „Stored Procedure“ verstanden werden. Fabric unterscheidet in User- und System-Chaincode. Über den
+    User-Chaincode, der auf den Peers (Docker-Container) ausgeführt wird, können die Daten aus dem Hauptbuch gelesen und
+    aktualisiert werden. Fabric unterstützt beim User-Chaincode gängige Programmiersprachen wie z.B. Java, Go und
+    Node.js. Der Chaincode muss Teil des Kanals (Channel) sein und kann nur auf das Hauptbuch dieses Kanals angewendet
+    werden. Die Instanziierung umfasst eine Verknüpfung einer bestimmten Chaincode-Version mit dem Kanal. Es ist
+    möglich, dass auf einem Peer mehrere Versionen eines Chaincodes gleichzeitig vorhanden sind. Die
+    Chaincode-Instanziierung erfordert eine Endorsement-Richtlinie,
+    die vorschlägt, welcher Peer die Chaincode-Transaktionen unterstützen kann. Dabei kann jeder Chaincode eine eigene
+    Richtlinie haben.
+</content>

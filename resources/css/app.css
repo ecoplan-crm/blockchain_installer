@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+    color: theme('colors.maincolor');
+}
+
+a:hover {
+    color: theme('colors.maincolorh');
+}
+
+pre {
+    text-wrap: wrap!important;
+    padding: 0.375rem 0.75rem!important;
+    min-height: 150px!important;
+    line-break: anywhere;
+}
+
+[x-cloak] { display: none !important; }
+
+
+    .custom-list-decimal {
+        list-style-type: none; /* Entfernt die standardmäßigen Aufzählungszeichen */
+        counter-reset: my-counter; /* Setzt den Zähler für die benutzerdefinierte Aufzählung zurück */
+        padding-left: 2em; /* Entfernt den Standard-Padding der Liste */
+    }
+
+    .custom-list-decimal li::before {
+        content: counter(my-counter) '.'; /* Fügt die benutzerdefinierte Aufzählung hinzu */
+        counter-increment: my-counter; /* Erhöht den Zähler für jede Aufzählung */
+        display: inline-block;
+        _text-align: right; /* Ausrichtung der Aufzählungszeichen */
+        margin-right: 0.5em; /* Abstand zwischen Aufzählungszeichen und Text */
+        margin-left: -1.5em;
+    }
