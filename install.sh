@@ -111,7 +111,7 @@ elif [ "$ACTION" == "install" ]; then
         cd "$MAINPATH"
         sudo mkdir -p Digi3
         cd Digi3
-        sudo git clone git@github.com:ecoplan-crm/digi3_laravel.git
+        sudo git clone git@github.com:ecoplan-crm/blockchain_installer.git
 
         if [ ! -d "$MAINPATH/Digi3/digi3_laravel" ]; then
             echo "Repository wurde nicht erfolgreich geklont. Es wird zurück zu Schritt 1 gesprungen."
