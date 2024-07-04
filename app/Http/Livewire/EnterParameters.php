@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Contracts\Session\Session;
-
 class EnterParameters extends EcoplanComponent
 {
     public $peerCount = 2;
-    public $channelName = "channel";
-    public $chaincodeLanguage = "Java";
-    public $chaincodeName = "basic";
-    public $chaincodeVersion = "1.0";
-    public $chaincodeSequenz = "1";
-    public $chaincodeDirectory = "../asset-my/chaincode/";
+
+    public $channelName = 'channel';
+
+    public $chaincodeLanguage = 'Java';
+
+    public $chaincodeName = 'basic';
+
+    public $chaincodeVersion = '1.0';
+
+    public $chaincodeSequenz = '1';
+
+    public $chaincodeDirectory = '../asset-my/chaincode/';
 
     public function render()
     {
@@ -63,6 +67,7 @@ class EnterParameters extends EcoplanComponent
     {
         $this->updated(null);
         $validatedData = $this->validate();
+
         return redirect()->to('/createConfiguration');
     }
 

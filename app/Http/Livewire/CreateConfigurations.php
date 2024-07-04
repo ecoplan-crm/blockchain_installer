@@ -3,17 +3,20 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Config;
-use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Facades\File;
-
+use Symfony\Component\Yaml\Yaml;
 
 class CreateConfigurations extends EcoplanComponent
 {
-    public $dockerComposeTestNet = "";
-    public $composeTestNet = "";
-    public $composeCa = "";
-    public $configtx = "";
-    public $message = "";
+    public $dockerComposeTestNet = '';
+
+    public $composeTestNet = '';
+
+    public $composeCa = '';
+
+    public $configtx = '';
+
+    public $message = '';
 
     public function render()
     {
@@ -51,12 +54,13 @@ class CreateConfigurations extends EcoplanComponent
         if (session('newNetwork')) {
             $this->validate();
         }
+
         return redirect()->to('/startNetwork');
     }
 
     public function back()
     {
-        if (session("newNetwork")) {
+        if (session('newNetwork')) {
             return redirect()->to('/enterParameters');
         } else {
             return redirect()->to('/?ignoreSessionCookie');
@@ -70,14 +74,14 @@ class CreateConfigurations extends EcoplanComponent
 
         if (File::exists($directoryPath)) {
             File::deleteDirectory($directoryPath);
-            if (!File::exists($directoryPath)) {
+            if (! File::exists($directoryPath)) {
                 session(['message' => 'Verzeichnis wurde gelöscht']);
             } else {
                 session(['message' => 'Beim Löschen ist ein Fehler aufgetreten. Hat das Verzeichnis die notwendigen Berechtigungen? Ggf. auf der Startseite das Netzwerk zurücksetzen!']);
             }
 
         } else {
-            session(['message' => Config::get('ecoplan.network_directory') . ' Verzeichnis wurde nicht gefunden']);
+            session(['message' => Config::get('ecoplan.network_directory').' Verzeichnis wurde nicht gefunden']);
         }
     }
 
@@ -101,18 +105,18 @@ class CreateConfigurations extends EcoplanComponent
         $path = Config::get('ecoplan.network_directory');
 
         $dockerComposeTestNet = Yaml::dump($dockerComposeTestNet, 5, 2);
-        file_put_contents($path . '/compose/docker/docker-compose-test-net.yaml', $dockerComposeTestNet);
+        file_put_contents($path.'/compose/docker/docker-compose-test-net.yaml', $dockerComposeTestNet);
 
         $composeTestNet = Yaml::dump($composeTestNet, 5, 2);
         $composeTestNet = str_replace('null', '', $composeTestNet);
         $composeTestNet = str_replace("'", '', $composeTestNet);
-        $composeTestNet = str_replace("3.7", "'3.7'", $composeTestNet);
-        file_put_contents($path . '/compose/compose-test-net.yaml', $composeTestNet);
+        $composeTestNet = str_replace('3.7', "'3.7'", $composeTestNet);
+        file_put_contents($path.'/compose/compose-test-net.yaml', $composeTestNet);
 
         $composeCa = Yaml::dump($composeCa, 5, 2);
-        file_put_contents($path . '/compose/compose-ca.yaml', $composeCa);
+        file_put_contents($path.'/compose/compose-ca.yaml', $composeCa);
 
-        file_put_contents($path . '/configtx/configtx.yaml', $configtx);
+        file_put_contents($path.'/configtx/configtx.yaml', $configtx);
 
         $this->dockerComposeTestNet = $dockerComposeTestNet;
         $this->composeTestNet = $composeTestNet;
@@ -121,21 +125,21 @@ class CreateConfigurations extends EcoplanComponent
 
         $this->updateSessionParameters();
 
-        $this->message = "Konfigurationsdateien wurden erzeugt";
+        $this->message = 'Konfigurationsdateien wurden erzeugt';
     }
 
     public function generateDockerComposeTestNet($peerNo)
     {
         $value = [
             'version' => '3.7',
-            'services' => []
+            'services' => [],
         ];
 
         for ($i = 0; $i < $peerNo; $i++) {
 
             $value['services'] += [
-                'peer' . $i . '.org1.example.com' => [
-                    'container_name' => 'peer' . $i . '.org1.example.com',
+                'peer'.$i.'.org1.example.com' => [
+                    'container_name' => 'peer'.$i.'.org1.example.com',
                     'image' => 'hyperledger/fabric-peer:2.4.9',
                     'labels' => ['service' => 'hyperledger-fabric'],
                     'environment' => [
@@ -146,7 +150,7 @@ class CreateConfigurations extends EcoplanComponent
                         './docker/peercfg:/etc/hyperledger/peercfg',
                         '${DOCKER_SOCK}:/host/var/run/docker.sock',
                     ],
-                ]
+                ],
             ];
         }
 
@@ -155,7 +159,7 @@ class CreateConfigurations extends EcoplanComponent
                 'container_name' => 'cli',
                 'image' => 'hyperledger/fabric-tools:2.4.9',
                 'volumes' => ['./docker/peercfg:/etc/hyperledger/peercfg'],
-            ]
+            ],
         ];
 
         return $value;
@@ -174,7 +178,7 @@ class CreateConfigurations extends EcoplanComponent
                 ],
             ],
 
-            'services' => null
+            'services' => null,
         ];
 
         //Orderer-Service
@@ -183,14 +187,14 @@ class CreateConfigurations extends EcoplanComponent
 
         //Peers-Service
         for ($i = 0; $i < $peerNo; $i++) {
-            $value['volumes'] += ['peer' . $i . '.org1.example.com' => null];
+            $value['volumes'] += ['peer'.$i.'.org1.example.com' => null];
             $value['services'] += self::peerService($i);
         }
 
         //CLI-Service
         $value['services'] += self::cliService();
         for ($i = 0; $i < $peerNo; $i++) {
-            array_push($value['services']['cli']['depends_on'], 'peer' . $i . '.org1.example.com');
+            array_push($value['services']['cli']['depends_on'], 'peer'.$i.'.org1.example.com');
         }
 
         return $value;
@@ -244,7 +248,7 @@ class CreateConfigurations extends EcoplanComponent
                 'networks' => [
                     'test',
                 ],
-            ]
+            ],
         ];
 
         return $return;
@@ -257,8 +261,8 @@ class CreateConfigurations extends EcoplanComponent
         $port = 7051 + (1000 * $peerNo);
 
         $return = [
-            'peer' . $peerNo . '.org1.example.com' => [
-                'container_name' => 'peer' . $peerNo . '.org1.example.com',
+            'peer'.$peerNo.'.org1.example.com' => [
+                'container_name' => 'peer'.$peerNo.'.org1.example.com',
                 'image' => 'hyperledger/fabric-peer:2.4.9',
                 'labels' => [
                     'service' => 'hyperledger-fabric',
@@ -271,39 +275,38 @@ class CreateConfigurations extends EcoplanComponent
                     'CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt',
                     'CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key',
                     'CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt',
-                    'CORE_PEER_ID=peer' . $peerNo . '.org1.example.com',
-                    'CORE_PEER_ADDRESS=peer' . $peerNo . '.org1.example.com:' . ($port),
-                    'CORE_PEER_LISTENADDRESS=0.0.0.0:' . ($port),
-                    'CORE_PEER_CHAINCODEADDRESS=peer' . $peerNo . '.org1.example.com:' . ($port + 1),
-                    'CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:' . ($port + 1),
-                    'CORE_PEER_GOSSIP_BOOTSTRAP=peer' . $peerNo . '.org1.example.com:' . ($port),
-                    'CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer' . $peerNo . '.org1.example.com:' . ($port),
+                    'CORE_PEER_ID=peer'.$peerNo.'.org1.example.com',
+                    'CORE_PEER_ADDRESS=peer'.$peerNo.'.org1.example.com:'.($port),
+                    'CORE_PEER_LISTENADDRESS=0.0.0.0:'.($port),
+                    'CORE_PEER_CHAINCODEADDRESS=peer'.$peerNo.'.org1.example.com:'.($port + 1),
+                    'CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:'.($port + 1),
+                    'CORE_PEER_GOSSIP_BOOTSTRAP=peer'.$peerNo.'.org1.example.com:'.($port),
+                    'CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer'.$peerNo.'.org1.example.com:'.($port),
                     'CORE_PEER_LOCALMSPID=Org1MSP',
                     'CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp',
-                    'CORE_OPERATIONS_LISTENADDRESS=peer' . $peerNo . '.org1.example.com:' . ($port2),
+                    'CORE_OPERATIONS_LISTENADDRESS=peer'.$peerNo.'.org1.example.com:'.($port2),
                     'CORE_METRICS_PROVIDER=prometheus',
-                    'CHAINCODE_AS_A_SERVICE_BUILDER_CONFIG={"peername":"peer' . $peerNo . 'org1"}',
-                    'CORE_CHAINCODE_EXECUTETIMEOUT=300s'
+                    'CHAINCODE_AS_A_SERVICE_BUILDER_CONFIG={"peername":"peer'.$peerNo.'org1"}',
+                    'CORE_CHAINCODE_EXECUTETIMEOUT=300s',
                 ],
                 'volumes' => [
-                    '../organizations/peerOrganizations/org1.example.com/peers/peer' . $peerNo . '.org1.example.com:/etc/hyperledger/fabric',
-                    'peer' . $peerNo . '.org1.example.com:/var/hyperledger/production'
+                    '../organizations/peerOrganizations/org1.example.com/peers/peer'.$peerNo.'.org1.example.com:/etc/hyperledger/fabric',
+                    'peer'.$peerNo.'.org1.example.com:/var/hyperledger/production',
                 ],
                 'working_dir' => '/root',
                 'command' => 'peer node start',
                 'ports' => [
-                    ($port) . ':' . ($port),
-                    ($port2) . ':' . ($port2),
+                    ($port).':'.($port),
+                    ($port2).':'.($port2),
                 ],
                 'networks' => [
                     'test',
                 ],
-            ]
+            ],
         ];
 
         return $return;
     }
-
 
     private function cliService()
     {
@@ -325,7 +328,7 @@ class CreateConfigurations extends EcoplanComponent
                 'command' => '/bin/bash',
                 'volumes' => [
                     '../organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations',
-                    '../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/'
+                    '../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/',
                 ],
                 'depends_on' => [],
                 'networks' => [
@@ -355,7 +358,7 @@ class CreateConfigurations extends EcoplanComponent
                         'FABRIC_CA_SERVER_CA_NAME=ca-org1',
                         'FABRIC_CA_SERVER_TLS_ENABLED=true',
                         'FABRIC_CA_SERVER_PORT=7054',
-                        'FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:17054'
+                        'FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:17054',
                     ],
                     'ports' => [
                         '7054:7054',

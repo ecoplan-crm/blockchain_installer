@@ -3,13 +3,11 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\File;
 
 class Start extends EcoplanComponent
 {
-
     public function render()
     {
         return view('livewire.start');
@@ -17,7 +15,7 @@ class Start extends EcoplanComponent
 
     public function mount()
     {
-        if (!request()->has('ignoreSessionCookie')) {
+        if (! request()->has('ignoreSessionCookie')) {
             $this->checkSessionCookie();
         }
     }
@@ -25,6 +23,7 @@ class Start extends EcoplanComponent
     public function joinNetwork()
     {
         session(['newNetwork' => false]);
+
         return redirect()->to('/createConfiguration');
     }
 
@@ -32,6 +31,7 @@ class Start extends EcoplanComponent
     {
         session(['newNetwork' => true]);
         session(['peerNumber' => 0]);
+
         return redirect()->to('/enterParameters');
     }
 
@@ -45,22 +45,20 @@ class Start extends EcoplanComponent
         $networkFolderExists = File::exists($networkDirectory);
 
         if ($networkFolderExists) {
-            EcoplanComponent::executeScript($networkDirectory . "/network.sh down");
-            EcoplanComponent::executeScript("rm -R " . $networkDirectory);
+            EcoplanComponent::executeScript($networkDirectory.'/network.sh down');
+            EcoplanComponent::executeScript('rm -R '.$networkDirectory);
         }
 
-        EcoplanComponent::executeScript("cp -R " . realpath("$digiDirectory/Skript/my-network") . " $networkDirectory");
+        EcoplanComponent::executeScript('cp -R '.realpath("$digiDirectory/Skript/my-network")." $networkDirectory");
         EcoplanComponent::chmodNetworkDirectory();
 
-
-
         EcoplanComponent::executeScript("rm -R $assetDirectory");
-        EcoplanComponent::executeScript("cp -R " . realpath("$digiDirectory/Skript/asset-my") . " " . $assetDirectory);
+        EcoplanComponent::executeScript('cp -R '.realpath("$digiDirectory/Skript/asset-my").' '.$assetDirectory);
         EcoplanComponent::executeScript("sudo chmod -R 777 $assetDirectory");
 
         EcoplanComponent::executeScript("rm $walletDirectory/*");
 
-        if (!$networkFolderExists) {
+        if (! $networkFolderExists) {
             EcoplanComponent::executeScript("$networkDirectory/network.sh down");
         }
 
@@ -74,17 +72,21 @@ class Start extends EcoplanComponent
         return $this->canonicalize($relativePath);
     }
 
-    function canonicalize($path) {
+    public function canonicalize($path)
+    {
         $parts = array_filter(explode('/', $path), 'strlen');
         $absolutes = [];
         foreach ($parts as $part) {
-            if ('.' == $part) continue;
+            if ('.' == $part) {
+                continue;
+            }
             if ('..' == $part) {
                 array_pop($absolutes);
             } else {
                 $absolutes[] = $part;
             }
         }
-        return '/' . implode('/', $absolutes);
+
+        return '/'.implode('/', $absolutes);
     }
 }

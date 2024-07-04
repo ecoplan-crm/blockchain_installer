@@ -4,12 +4,12 @@ namespace App\Http\Livewire;
 
 class Information extends EcoplanComponent
 {
-
-    public $blocks = array();
+    public $blocks = [];
 
     public function render()
     {
         session(['newNetwork' => true]);
+
         return view('livewire.information');
     }
 

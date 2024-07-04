@@ -1,18 +1,15 @@
 <?php
 
-use App\Http\Livewire\Information;
-use App\Http\Livewire\Installation;
 use App\Http\Livewire\CreateConfigurations;
+use App\Http\Livewire\DeliverPeers;
 use App\Http\Livewire\DeployChaincode;
 use App\Http\Livewire\EnterParameters;
-use App\Http\Livewire\StartNetwork;
+use App\Http\Livewire\Information;
+use App\Http\Livewire\Installation;
 use App\Http\Livewire\Start;
-use App\Http\Livewire\DeliverPeers;
+use App\Http\Livewire\StartNetwork;
 use App\Http\Livewire\TestApp;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ZipController;
-
-use GuzzleHttp\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +35,12 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::get('/zip-download/{serverIP}/{peerNumber}', 'App\Http\Controllers\ZipController@zipAndDownloadDirectory')->name('download.zip');
-Route::post('/zip-upload',  'App\Http\Controllers\ZipController@uploadAndExtract')->name('upload.zip');
+Route::post('/zip-upload', 'App\Http\Controllers\ZipController@uploadAndExtract')->name('upload.zip');
 
 //Diese Route löscht alle Session-Daten
 Route::get('/sessionClear', function () {
     session()->flush();
+
     return redirect()->back();
 });
 

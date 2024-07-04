@@ -3,40 +3,51 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Request;
 
 class TestApp extends EcoplanComponent
 {
-    public $data = array();
+    public $data = [];
+
     public $edit = false;
+
     public $deleteModal = false;
+
     public $isNewAsset = false;
+
     public $isSaving = false;
+
     public $errorMessage;
+
     public $startTime = 0;
+
     public $executionTime = 0;
 
-    public $cookieSavedMessage = "";
+    public $cookieSavedMessage = '';
 
     public $assetID;
+
     public $color;
+
     public $size;
+
     public $owner;
+
     public $appraisedValue;
+
     public $ending = false;
+
     public $emtyModalData = [
-        "assetID" => "",
-        "color" => "",
-        "size" => "",
-        "owner" => "",
-        "appraisedValue" => "",
+        'assetID' => '',
+        'color' => '',
+        'size' => '',
+        'owner' => '',
+        'appraisedValue' => '',
     ];
 
     protected $listeners = ['setData', 'deleteEntry'];
-
 
     public function render()
     {
@@ -44,7 +55,6 @@ class TestApp extends EcoplanComponent
             'data' => $this->data,
         ]);
     }
-
 
     public function rules()
     {
@@ -84,7 +94,7 @@ class TestApp extends EcoplanComponent
     public function init()
     {
         $this->setStartTime();
-        $this->sendCommand("InitLedger", null);
+        $this->sendCommand('InitLedger', null);
         $this->refresh();
         $this->calculateExecutionTime();
     }
@@ -110,10 +120,11 @@ class TestApp extends EcoplanComponent
     {
 
         foreach ($this->data as $asset) {
-            if ($asset["assetID"] == $assetID) {
+            if ($asset['assetID'] == $assetID) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -138,7 +149,7 @@ class TestApp extends EcoplanComponent
     {
         $this->validate();
         $this->setStartTime();
-        $response = $this->sendCommand(($this->isNewAsset) ? "CreateAsset" : "UpdateAsset", [$this->assetID, $this->color, $this->size, $this->owner, $this->appraisedValue]);
+        $response = $this->sendCommand(($this->isNewAsset) ? 'CreateAsset' : 'UpdateAsset', [$this->assetID, $this->color, $this->size, $this->owner, $this->appraisedValue]);
         if (is_array($response)) {
             $this->refresh();
             $this->toggleEditor(false);
@@ -158,7 +169,7 @@ class TestApp extends EcoplanComponent
 
     private function refresh()
     {
-        $response = $this->sendCommand("GetAllAssets", null);
+        $response = $this->sendCommand('GetAllAssets', null);
         if (is_array($response)) {
             $this->data = $response;
         } else {
@@ -169,13 +180,13 @@ class TestApp extends EcoplanComponent
     public function sendCommand($function, $parameter)
     {
 
-        $response = Http::get('http://localhost:' . Config::get('ecoplan.nodejs_port') . '/ledger', [
+        $response = Http::get('http://localhost:'.Config::get('ecoplan.nodejs_port').'/ledger', [
             'command' => $function,
             'parameter' => $parameter,
-            'channel' => session("channelName"),
-            'isNewNetwork' => session("newNetwork") ?? 0,
-            'peerNumber' => session("peerNumber"),
-            'ccn' => session("chaincodeName"),
+            'channel' => session('channelName'),
+            'isNewNetwork' => session('newNetwork') ?? 0,
+            'peerNumber' => session('peerNumber'),
+            'ccn' => session('chaincodeName'),
         ]);
 
         if ($response->json() == null) {
@@ -192,7 +203,7 @@ class TestApp extends EcoplanComponent
 
     public function back()
     {
-        if (session("newNetwork")) {
+        if (session('newNetwork')) {
             return redirect()->to('/deliverPeers');
         } else {
             return redirect()->to('/deployChaincode');
@@ -205,16 +216,16 @@ class TestApp extends EcoplanComponent
         foreach ($data as $parameter => $value) {
             $this->$parameter = $value;
         }
-        $this->isNewAsset = !$this->assetExists($this->assetID);
+        $this->isNewAsset = ! $this->assetExists($this->assetID);
     }
 
     public function deleteEntry()
     {
         $this->setStartTime();
 
-        $response = $this->sendCommand("DeleteAsset", [$this->assetID]);
+        $response = $this->sendCommand('DeleteAsset', [$this->assetID]);
 
-        if ($response == "Asset removed successful!") {
+        if ($response == 'Asset removed successful!') {
             $this->refresh();
             $this->deleteModal = false;
             $this->errorMessage = null;

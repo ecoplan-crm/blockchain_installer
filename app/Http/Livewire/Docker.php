@@ -4,13 +4,13 @@ namespace App\Http\Livewire;
 
 class Docker extends EcoplanComponent
 {
-    public $containers = array();
-    protected $listeners = ['refreshComponent'];
+    public $containers = [];
 
+    protected $listeners = ['refreshComponent'];
 
     public function refresh()
     {
-        $command = "curl -X GET --unix-socket /var/run/docker.sock http:/v1.40/containers/json";
+        $command = 'curl -X GET --unix-socket /var/run/docker.sock http:/v1.40/containers/json';
         exec($command, $output, $returnCode);
 
         if ($returnCode !== 0) {

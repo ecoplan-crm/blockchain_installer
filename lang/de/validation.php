@@ -27,7 +27,7 @@ return [
     ],
     'max' => [
         'numeric' => 'Der Maxwert ist :max.',
-        'string' => ':attribute darf maximal :max Zeichen lang sein.'
+        'string' => ':attribute darf maximal :max Zeichen lang sein.',
     ],
     'required' => 'Das Feld :attribute ist verpflichtend.',
     'regex' => 'Die Eingabe entspricht nicht dem benötigten Format.',

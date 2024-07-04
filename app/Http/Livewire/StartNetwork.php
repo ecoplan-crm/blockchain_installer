@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Config;
-
 class StartNetwork extends EcoplanComponent
 {
     protected $listeners = ['finished'];
+
     public $starting = false;
-    public $logContent = "";
+
+    public $logContent = '';
 
     public function render()
     {
@@ -20,7 +20,8 @@ class StartNetwork extends EcoplanComponent
         $this->logContent = session('networkLogContent', $this->logContent);
     }
 
-    public function setLogContent($logContent) {
+    public function setLogContent($logContent)
+    {
         $this->logContent = $logContent;
         session(['networkLogContent' => $logContent]);
     }
@@ -33,7 +34,7 @@ class StartNetwork extends EcoplanComponent
 
     public function clearLog()
     {
-        $this->logContent = "";
+        $this->logContent = '';
         session()->forget('networkLogContent');
     }
 
