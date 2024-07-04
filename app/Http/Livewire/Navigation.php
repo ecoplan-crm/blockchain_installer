@@ -2,14 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Request;
 
 class Navigation extends EcoplanComponent
 {
     public $status = [];
+
     public $count = 0;
+
     public $nav = [];
+
     public $showURLAlert = true;
 
     public function render()
@@ -17,11 +20,13 @@ class Navigation extends EcoplanComponent
         return view('livewire.navigation');
     }
 
-    public function reloadWithAppURL() {
-        return redirect()->to(Config::get('app.url') . ((array_key_exists("port", parse_url(request()->fullUrl())))?':' . parse_url(request()->fullUrl())["port"] : ''));
+    public function reloadWithAppURL()
+    {
+        return redirect()->to(Config::get('app.url').((array_key_exists('port', parse_url(request()->fullUrl()))) ? ':'.parse_url(request()->fullUrl())['port'] : ''));
     }
 
-    public function ignore() {
+    public function ignore()
+    {
         $this->showURLAlert = false;
     }
 
@@ -44,7 +49,7 @@ class Navigation extends EcoplanComponent
 
             $this->status['deliver'] = 'completed';
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['testapp'] = 'current';
                 $completed = true;
             }
@@ -54,7 +59,7 @@ class Navigation extends EcoplanComponent
 
             $this->status['chaincode'] = 'completed';
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['deliver'] = 'current';
                 $completed = true;
             }
@@ -64,7 +69,7 @@ class Navigation extends EcoplanComponent
 
             $this->status['network'] = 'completed';
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['chaincode'] = 'current';
                 $completed = true;
             }
@@ -74,7 +79,7 @@ class Navigation extends EcoplanComponent
 
             $this->status['configurations'] = 'completed';
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['network'] = 'current';
                 $completed = true;
             }
@@ -84,7 +89,7 @@ class Navigation extends EcoplanComponent
 
             $this->status['parameters'] = 'completed';
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['configurations'] = 'current';
                 $completed = true;
             }
@@ -92,7 +97,7 @@ class Navigation extends EcoplanComponent
 
         if ($currentRoute === 'enterParameters' || $completed) {
 
-            if (!$completed) {
+            if (! $completed) {
                 $this->status['parameters'] = 'current';
                 $completed = true;
             }
@@ -100,46 +105,46 @@ class Navigation extends EcoplanComponent
 
         $this->nav = [
             [
-                'condition' => session("newNetwork"),
-                'description' => "Parameter",
+                'condition' => session('newNetwork'),
+                'description' => 'Parameter',
                 'status' => $this->status['parameters'],
-                'redirectTo' => "/enterParameters",
-                'laststep' => false
+                'redirectTo' => '/enterParameters',
+                'laststep' => false,
             ],
             [
                 'condition' => true,
-                'description' => "Konfigurationen",
+                'description' => 'Konfigurationen',
                 'status' => $this->status['configurations'],
-                'redirectTo' => "/createConfiguration",
-                'laststep' => false
+                'redirectTo' => '/createConfiguration',
+                'laststep' => false,
             ],
             [
                 'condition' => true,
-                'description' => "Netzwerk",
+                'description' => 'Netzwerk',
                 'status' => $this->status['network'],
-                'redirectTo' => "/startNetwork",
-                'laststep' => false
+                'redirectTo' => '/startNetwork',
+                'laststep' => false,
             ],
             [
                 'condition' => true,
-                'description' => "Chaincode",
+                'description' => 'Chaincode',
                 'status' => $this->status['chaincode'],
-                'redirectTo' => "/deployChaincode",
-                'laststep' => false
+                'redirectTo' => '/deployChaincode',
+                'laststep' => false,
             ],
             [
-                'condition' => session("newNetwork"),
-                'description' => "Peers",
+                'condition' => session('newNetwork'),
+                'description' => 'Peers',
                 'status' => $this->status['deliver'],
-                'redirectTo' => "/deliverPeers",
-                'laststep' => false
+                'redirectTo' => '/deliverPeers',
+                'laststep' => false,
             ],
             [
                 'condition' => true,
-                'description' => "Test",
+                'description' => 'Test',
                 'status' => $this->status['testapp'],
-                'redirectTo' => "/testApp",
-                'laststep' => true
+                'redirectTo' => '/testApp',
+                'laststep' => true,
             ],
         ];
     }

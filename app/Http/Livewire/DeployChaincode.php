@@ -5,14 +5,15 @@ namespace App\Http\Livewire;
 class DeployChaincode extends EcoplanComponent
 {
     protected $listeners = ['finished'];
+
     public $deploying = false;
-    public $logContent = "";
+
+    public $logContent = '';
 
     public function render()
     {
         return view('livewire.deploy-chaincode');
     }
-
 
     public function mount()
     {
@@ -27,7 +28,7 @@ class DeployChaincode extends EcoplanComponent
 
     public function clearLog()
     {
-        $this->logContent = "";
+        $this->logContent = '';
         session()->forget('deployLogContent');
     }
 
@@ -40,7 +41,7 @@ class DeployChaincode extends EcoplanComponent
 
     public function next()
     {
-        if (session("newNetwork")) {
+        if (session('newNetwork')) {
             return redirect()->to('/deliverPeers');
         } else {
             return redirect()->to('/testApp');

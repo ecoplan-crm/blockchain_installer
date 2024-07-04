@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Config;
-use Livewire\Component;
-
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 abstract class EcoplanComponent extends Component
 {
@@ -32,7 +30,7 @@ abstract class EcoplanComponent extends Component
     public static function executeScript($script)
     {
 
-        $response = Http::post( Config::get('app.url') . ':' . Config::get('ecoplan.nodejs_port') . '/livewire-execute-script', [
+        $response = Http::post(Config::get('app.url').':'.Config::get('ecoplan.nodejs_port').'/livewire-execute-script', [
             'script' => $script,
         ]);
 
@@ -41,10 +39,11 @@ abstract class EcoplanComponent extends Component
 
     public static function chmodNetworkDirectory()
     {
-        EcoplanComponent::executeScript("sudo chmod -R 777 " . Config::get('ecoplan.network_directory'));
+        EcoplanComponent::executeScript('sudo chmod -R 777 '.Config::get('ecoplan.network_directory'));
     }
 
-    public function checkSessionCookie() {
+    public function checkSessionCookie()
+    {
 
         if ($this->isSessionCookieSet()) {
 
@@ -54,14 +53,15 @@ abstract class EcoplanComponent extends Component
                 session([$key => $value]);
             }
 
-            if (!request()->is('testApp')) {
+            if (! request()->is('testApp')) {
                 return redirect('/testApp');
             }
 
         }
     }
 
-    public function isSessionCookieSet() {
+    public function isSessionCookieSet()
+    {
         return request()->hasCookie('session_data');
     }
 }
