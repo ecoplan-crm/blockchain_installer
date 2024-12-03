@@ -25,7 +25,7 @@ class ZipController extends Controller
         $zipFile->move($path, $filename);
 
         // Zip-Datei extrahieren
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         if ($zip->open($path.'/'.$filename) === true) {
             $zip->extractTo($path);
             $zip->close();
@@ -92,7 +92,7 @@ class ZipController extends Controller
             ['##{cert}##', str_replace("\n", '\n', $arrayData['peers']['peer0.org1.example.com']['tlsCACerts']['pem'])],
         ]);
 
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === true) {
 
             $this->addDirectoryToZip($zip, $directoryToZip, basename($directoryToZip), []);
