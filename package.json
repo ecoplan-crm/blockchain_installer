@@ -7,7 +7,7 @@
     "devDependencies": {
         "@alpinejs/persist": "^3.10.5",
         "autoprefixer": "^10.4.14",
-        "axios": "^0.27",
+        "axios": "^1.13",
         "laravel-vite-plugin": "^0.6.1",
         "lodash": "^4.17.19",
         "postcss": "^8.4.24",
@@ -21,7 +21,7 @@
         "dotenv": "^16.3.1",
         "express": "^4.22.1",
         "fabric-ca-client": "2.2.18",
-        "fabric-network": "^2.2.18",
+        "fabric-network": "^2.2.20",
         "undici": "^5.28.5"
     }
 }
