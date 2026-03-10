@@ -37,14 +37,14 @@ Route::middleware(['web'])->group(function () {
 Route::get('/zip-download/{serverIP}/{peerNumber}', 'App\Http\Controllers\ZipController@zipAndDownloadDirectory')->name('download.zip');
 Route::post('/zip-upload', 'App\Http\Controllers\ZipController@uploadAndExtract')->name('upload.zip');
 
-//Diese Route löscht alle Session-Daten
+// Diese Route löscht alle Session-Daten
 Route::get('/sessionClear', function () {
     session()->flush();
 
     return redirect()->back();
 });
 
-//Diese Route wird benötigt, damit die app.js Zugriff auf die Umgebungsvariablen hat
+// Diese Route wird benötigt, damit die app.js Zugriff auf die Umgebungsvariablen hat
 Route::get('/env-variables', function () {
     return response()->json([
         'nodejsPort' => env('NODEJS_PORT'),

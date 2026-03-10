@@ -8,7 +8,7 @@ class DeliverPeers extends EcoplanComponent
 
     public $peerPackages = 0;
 
-    public $serverIP = '10.11.12.74'; //TODO vorbelegung rausnehmen
+    public $serverIP = '10.11.12.74'; // TODO vorbelegung rausnehmen
 
     public function mount()
     {
