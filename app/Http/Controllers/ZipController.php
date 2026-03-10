@@ -61,11 +61,11 @@ class ZipController extends Controller
 
         $peerPort = 7051 + ($peerNumber * 1000);
 
-        //Extrahiere Zertifikat aus Connection-Profil
+        // Extrahiere Zertifikat aus Connection-Profil
         $jsonData = file_get_contents($directoryToZip.'/organizations/peerOrganizations/org1.example.com/connection-org1.json');
         $arrayData = json_decode($jsonData, true);
 
-        //Passe Skripte zum Start des zusätzliche Peers an
+        // Passe Skripte zum Start des zusätzliche Peers an
         $this->replaceInFile(base_path('Skript/additionalPeers/startPeerAndJoinChannel.sh'), $directoryToZip.'/startPeerAndJoinChannel.sh', [
             ['##{channelName}##', session('channelName')],
             ['##{peerPort}##', $peerPort],
@@ -97,7 +97,7 @@ class ZipController extends Controller
 
             $this->addDirectoryToZip($zip, $directoryToZip, basename($directoryToZip), []);
 
-            //Erstellt Config-File
+            // Erstellt Config-File
             $data = [
                 'channelName' => session('channelName'),
                 'peerNumber' => $peerNumber,
