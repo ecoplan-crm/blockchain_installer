@@ -102,7 +102,7 @@ class TestApp extends EcoplanComponent
     public function mount()
     {
         $this->checkSessionCookie();
-        //$this->refresh();
+        // $this->refresh();
     }
 
     public function newEntry()

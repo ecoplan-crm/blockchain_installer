@@ -89,19 +89,19 @@ class CreateConfigurations extends EcoplanComponent
     {
         $peerCount = session('peerCount');
 
-        //Auflistung aller Peers und der Cli
+        // Auflistung aller Peers und der Cli
         $dockerComposeTestNet = self::generateDockerComposeTestNet($peerCount);
 
-        //Auflistung aller Peers und des orderers und der Cli
+        // Auflistung aller Peers und des orderers und der Cli
         $composeTestNet = self::generateComposeTestNet($peerCount);
 
-        //Alle CAs (je einer für jede Org und einen Orderer-CA)
+        // Alle CAs (je einer für jede Org und einen Orderer-CA)
         $composeCa = self::generateComposeCa($peerCount);
 
-        //Auflistung der Organisationen und des orderers
+        // Auflistung der Organisationen und des orderers
         $configtx = self::generateConfigtx($peerCount);
 
-        //In Datei schreiben
+        // In Datei schreiben
         $path = Config::get('ecoplan.network_directory');
 
         $dockerComposeTestNet = Yaml::dump($dockerComposeTestNet, 5, 2);
@@ -181,17 +181,17 @@ class CreateConfigurations extends EcoplanComponent
             'services' => null,
         ];
 
-        //Orderer-Service
+        // Orderer-Service
         $value['volumes'] = ['orderer.example.com' => null];
         $value['services'] = self::ordererService();
 
-        //Peers-Service
+        // Peers-Service
         for ($i = 0; $i < $peerNo; $i++) {
             $value['volumes'] += ['peer'.$i.'.org1.example.com' => null];
             $value['services'] += self::peerService($i);
         }
 
-        //CLI-Service
+        // CLI-Service
         $value['services'] += self::cliService();
         for ($i = 0; $i < $peerNo; $i++) {
             array_push($value['services']['cli']['depends_on'], 'peer'.$i.'.org1.example.com');

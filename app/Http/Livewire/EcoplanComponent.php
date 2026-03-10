@@ -26,7 +26,7 @@ abstract class EcoplanComponent extends Component
         return redirect()->to($redirectTo);
     }
 
-    //Sendet an die Node.js-App ein Skript zum Ausführen ohne Live-Ausgabe der Logs
+    // Sendet an die Node.js-App ein Skript zum Ausführen ohne Live-Ausgabe der Logs
     public static function executeScript($script)
     {
 
