@@ -22,6 +22,6 @@
         "express": "^4.22.1",
         "fabric-ca-client": "2.2.18",
         "fabric-network": "^2.2.18",
-        "undici": "^5.28.5"
+        "undici": "^6.24.0"
     }
 }
